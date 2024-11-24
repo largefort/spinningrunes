@@ -47,11 +47,12 @@
 
 .bg-rune {
   position: absolute;
-  color: rgba(0, 255, 242, 0.1);
+  color: rgba(0, 255, 242, 0.2); /* Increased from 0.1 to 0.2 for more brightness */
   font-size: 4em;
   animation: float-rune 8s infinite ease-in-out;
   transform-style: preserve-3d;
   perspective: 1000px;
+  text-shadow: 0 0 15px rgba(0, 255, 242, 0.3); /* Added glow effect */
 }
 
 @keyframes float-rune {
@@ -61,7 +62,7 @@
   }
   50% {
     transform: translateZ(100px) rotate(180deg);
-    opacity: 0.1;
+    opacity: 0.2; /* Increased from 0.1 to 0.2 */
   }
   100% {
     transform: translateZ(0) rotate(360deg);
