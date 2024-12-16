@@ -47,12 +47,12 @@
 
 .bg-rune {
   position: absolute;
-  color: rgba(0, 255, 242, 0.2); /* Increased from 0.1 to 0.2 for more brightness */
+  color: rgba(0, 255, 242, 0.4); /* Increased brightness */
   font-size: 4em;
   animation: float-rune 8s infinite ease-in-out;
   transform-style: preserve-3d;
   perspective: 1000px;
-  text-shadow: 0 0 15px rgba(0, 255, 242, 0.3); /* Added glow effect */
+  text-shadow: 0 0 15px rgba(0, 255, 242, 0.5);
 }
 
 @keyframes float-rune {
@@ -62,7 +62,7 @@
   }
   50% {
     transform: translateZ(100px) rotate(180deg);
-    opacity: 0.2; /* Increased from 0.1 to 0.2 */
+    opacity: 0.3;
   }
   100% {
     transform: translateZ(0) rotate(360deg);
@@ -101,74 +101,99 @@
   align-items: center;
   z-index: 1;
   transform-style: preserve-3d;
-  perspective: 1000px;
+  perspective: 1200px;
+}
+
+.rune-circle-outer {
+  animation: spin-outer 35s linear infinite;
+}
+
+.rune-circle-middle {
+  animation: spin-middle 40s linear infinite;
+}
+
+@keyframes spin-outer {
+  from {
+    transform: rotate(360deg) translateX(220px) rotate(-360deg) translateZ(60px);
+  }
+  to {
+    transform: rotate(0deg) translateX(220px) rotate(0deg) translateZ(60px);
+  }
+}
+
+@keyframes spin-middle {
+  from {
+    transform: rotate(0deg) translateX(160px) rotate(0deg) translateZ(40px);
+  }
+  to {
+    transform: rotate(360deg) translateX(160px) rotate(-360deg) translateZ(40px);
+  }
 }
 
 .rune {
   position: absolute;
-  font-size: 2.2em;
-  width: 50px;
-  height: 50px;
+  font-size: 2.4em;
+  width: 60px;
+  height: 60px;
   text-align: center;
   color: #80fff7;
   text-shadow: 
-    0 0 10px rgba(0, 255, 242, 0.8),
-    0 0 20px rgba(0, 255, 242, 0.5),
-    0 0 30px rgba(0, 255, 242, 0.3);
-  animation: spin 30s linear infinite;
+    0 0 15px rgba(0, 255, 242, 0.9),
+    0 0 25px rgba(0, 255, 242, 0.6),
+    0 0 35px rgba(0, 255, 242, 0.4);
   transform-origin: 50% 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 255, 242, 0.05);
+  background: rgba(0, 255, 242, 0.08);
   border-radius: 50%;
   box-shadow: 
-    0 0 15px rgba(0, 255, 242, 0.3),
-    inset 0 0 10px rgba(0, 255, 242, 0.2);
-  backdrop-filter: blur(2px);
+    0 0 20px rgba(0, 255, 242, 0.4),
+    inset 0 0 15px rgba(0, 255, 242, 0.3);
+  backdrop-filter: blur(3px);
   font-family: 'Segoe UI', Arial, sans-serif;
   letter-spacing: 1px;
-  font-weight: 500;
+  font-weight: 600;
   transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.rune:hover {
+  transform: scale(1.2) translateZ(30px);
+  background: rgba(0, 255, 242, 0.15);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 242, 0.6),
+    inset 0 0 20px rgba(0, 255, 242, 0.4);
 }
 
 .inner-rune {
   animation: spin-inner 25s linear infinite;
-  font-size: 1.8em;
+  font-size: 2em;
 }
 
 .particle {
   position: absolute;
   background: radial-gradient(circle at center, #00fff2 0%, transparent 70%);
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   pointer-events: none;
   filter: blur(1px);
   transform-style: preserve-3d;
-  animation: particle-3d 1.5s ease-out;
+  animation: particle-3d 2s ease-out;
 }
 
 @keyframes particle-3d {
   0% {
     opacity: 1;
-    transform: translateZ(0) scale(1.2);
+    transform: translateZ(0) scale(1.5);
   }
   50% {
-    transform: translateZ(50px) scale(1);
+    transform: translateZ(70px) scale(1.2);
   }
   100% {
     opacity: 0;
-    transform: translateZ(-20px) scale(0.2);
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg) translateX(160px) rotate(0deg) translateZ(0);
-  }
-  to {
-    transform: rotate(360deg) translateX(160px) rotate(-360deg) translateZ(0);
+    transform: translateZ(-30px) scale(0.2);
   }
 }
 
@@ -191,7 +216,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 @media screen and (max-width: 480px) {
@@ -209,8 +234,12 @@ body {
   .inner-rune {
     font-size: 1.5em;
   }
+
+  .rune-circle-outer .rune {
+    font-size: 1.6em;
+  }
   
-  @keyframes spin {
+  @keyframes spin-middle {
     from {
       transform: rotate(0deg) translateX(120px) rotate(0deg);
     }
@@ -225,6 +254,15 @@ body {
     }
     to {
       transform: rotate(-360deg) translateX(60px) rotate(360deg);
+    }
+  }
+
+  @keyframes spin-outer {
+    from {
+      transform: rotate(360deg) translateX(160px) rotate(-360deg);
+    }
+    to {
+      transform: rotate(0deg) translateX(160px) rotate(0deg);
     }
   }
 }
@@ -273,51 +311,66 @@ function createParticle(x, y) {
   particle.className = 'particle';
   particle.style.left = x + 'px';
   particle.style.top = y + 'px';
-  particle.style.transform = `translateZ(${Math.random() * 50}px)`;
+  particle.style.transform = `translateZ(${Math.random() * 70}px)`;
   document.body.appendChild(particle);
   
   setTimeout(() => {
     particle.remove();
-  }, 1500);
+  }, 2000);
 }
 
 function addParticleEffect(element) {
   element.addEventListener('mouseover', (e) => {
     const rect = element.getBoundingClientRect();
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       setTimeout(() => {
         const x = rect.left + Math.random() * rect.width;
         const y = rect.top + Math.random() * rect.height;
         createParticle(x, y);
-      }, i * 40);
+      }, i * 30);
     }
   });
   
   element.addEventListener('touchstart', (e) => {
     e.preventDefault();
     const rect = element.getBoundingClientRect();
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       setTimeout(() => {
         const x = rect.left + Math.random() * rect.width;
         const y = rect.top + Math.random() * rect.height;
         createParticle(x, y);
-      }, i * 40);
+      }, i * 30);
     }
   });
 }
 
-// Outer circle
-runes.forEach((rune, index) => {
+// Outer circle (outermost) - Even spacing
+const outerRuneCount = 24;
+for (let i = 0; i < outerRuneCount; i++) {
   const runeElement = document.createElement('div');
-  runeElement.className = 'rune';
-  runeElement.textContent = rune;
+  runeElement.className = 'rune rune-circle-outer';
+  runeElement.textContent = runes[i % runes.length];
   
-  const delay = (index / runes.length) * -30;
+  const delay = (i / outerRuneCount) * -35;
   runeElement.style.animationDelay = `${delay}s`;
   
   addParticleEffect(runeElement);
   container.appendChild(runeElement);
-});
+}
+
+// Middle circle (second layer)
+const middleRuneCount = 24;
+for (let i = 0; i < middleRuneCount; i++) {
+  const runeElement = document.createElement('div');
+  runeElement.className = 'rune rune-circle-middle';
+  runeElement.textContent = runes[i % runes.length];
+  
+  const delay = (i / middleRuneCount) * -40;
+  runeElement.style.animationDelay = `${delay}s`;
+  
+  addParticleEffect(runeElement);
+  container.appendChild(runeElement);
+}
 
 // Inner circle
 const innerRunes = [...runes].slice(0, 12);
@@ -333,18 +386,20 @@ innerRunes.forEach((rune, index) => {
   container.appendChild(runeElement);
 });
 
-// Continuous particle effect
+// Enhanced continuous particle effect
 setInterval(() => {
   const runeElements = document.querySelectorAll('.rune');
   runeElements.forEach(element => {
     const rect = element.getBoundingClientRect();
-    if (Math.random() < 0.05) {
-      const x = rect.left + Math.random() * rect.width;
-      const y = rect.top + Math.random() * rect.height;
-      createParticle(x, y);
+    if (Math.random() < 0.08) {
+      for (let i = 0; i < 3; i++) {
+        const x = rect.left + Math.random() * rect.width;
+        const y = rect.top + Math.random() * rect.height;
+        createParticle(x, y);
+      }
     }
   });
-}, 150);
+}, 100);
 
 createBackgroundRunes();
 </script>
